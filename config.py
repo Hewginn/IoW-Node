@@ -13,7 +13,7 @@ PAGE_DATA = '/api/sendData'
 #ID of the node
 NODE_NAME = 'NODE_1'
 NODE_PASSWORD = 'node1234'
-NODE_STATUS = NodeControl.NodeState.Development
+NODE_STATUS = NodeControl.NodeState.Online
 NODE_NAME = "Main Unit"
 NODE_LOCATION = "Felsoors Szegedi Roza utca 9."
 NODE_MAIN_UNIT = "Raspberry Pi 4 Model B"
