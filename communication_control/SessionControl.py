@@ -50,13 +50,13 @@ class NodeSessionControl():
         #Sending HTTP post
         response = requests.post(self.server + page, json=payload, headers=self.headers)
 
-        #Checking if connected succesfully
-        if response.status_code == 401:
-            self.isAuth = False
-
         # Print response
         print(response.status_code)
         print(response.text)
+
+        #Checking if connected succesfully
+        if response.status_code == 401:
+            self.isAuth = False
 
 
     def updateNode(self, page, payload):
@@ -66,16 +66,17 @@ class NodeSessionControl():
         #Sending HTTP post
         response = requests.post(self.server + page, json=payload, headers=self.headers)
 
+        # Print response
+        print(response.status_code)
+        print(response.text)
+
+
         #Checking if connected succesfully
         if response.status_code == 401:
             self.isAuth = False
             return False
         elif response.status_code != 200:
             return False
-
-        # Print response
-        print(response.status_code)
-        print(response.text)
 
         if 'control' in response.json():
             return response.json()['control']
