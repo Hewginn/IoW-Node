@@ -1,3 +1,6 @@
+import adafruit_dht
+from board import D17
+
 class Sensor():
     def __init__(self, sensor):
         self.is_online = sensor["is_online"]
@@ -33,11 +36,16 @@ class DHT11(Sensor):
 
     def __init__(self, sensor):
         super().__init__(sensor)
+        self.device = adafruit_dht.DHT11(D17)
         self.name = "DHT11"
 
     def readData(self):
-        self.humidity = 40
-        self.temperature = 24
+        try:
+            self.humidity = self.device.humidity
+            self.temperature = self.device.temperature
+        except RuntimeError:
+            self.is_online = False
+
 
     def getData(self):
         self.readData()

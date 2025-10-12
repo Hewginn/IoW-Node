@@ -19,11 +19,19 @@ sensors = [
 ]
 
 #Initiating "Session"
-session = SessionControl.NodeSessionControl(SERVER_URL)
+#session = SessionControl.NodeSessionControl(SERVER_URL)
 
 
 while(True):
+    sensors[0].readData()
+    temp = sensors[0].temperature
+    hum = sensors[0].humidity
 
+    print(f"The temperature is: {temp}, the humidity is: {hum}")
+
+    time.sleep(10)
+
+'''
     #Trying to connect to server
     if not session.isAuth:
 
@@ -54,3 +62,4 @@ while(True):
             session.send(PAGE_DATA, data)
 
     time.sleep(DATA_SEND_FRQ)
+'''
