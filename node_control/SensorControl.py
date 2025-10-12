@@ -61,7 +61,7 @@ class DHT11(Sensor):
         humidity_message = {
             "sensor_name": self.name,
             "value_type": "humidity",
-            "value":  self.temperature,
+            "value":  self.humidity,
             "unit": "%",
             "error_message": None,
         }
