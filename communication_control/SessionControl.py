@@ -67,12 +67,15 @@ class NodeSessionControl():
         if response.status_code == 401:
             self.isAuth = False
             return False
+        elif response.status_code != 200:
+            return False
 
         # Print response
         print(response.status_code)
         print(response.text)
 
-        return response.json()['control']
+        if 'control' in response.json():
+            return response.json()['control']
 
     
 
