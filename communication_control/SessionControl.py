@@ -4,11 +4,11 @@ import json
 class NodeSessionControl():
     def __init__(self, server):
         self.server = server
+        self.isAuth = False
+        self.serverResponding = True
         self.headers = {
             'Content-Type': 'application/json',
         }
-
-
 
     #Adding new token to the session
     def addToken(self, token):
@@ -32,17 +32,47 @@ class NodeSessionControl():
         print(response.status_code)
         print(response.text)
 
-        self.addToken(response.json()['token'])
+        if response.status_code == 200:
+            self.isAuth = True
+            self.addToken(response.json()['token'])
+        else:
+            self.isAuth = False
+            self.deleteToken()
 
     #Sending HTTP posts
     def send(self, page, payload):
+        if not self.isAuth:
+            return
 
         #Sending HTTP post
         response = requests.post(self.server + page, json=payload, headers=self.headers)
 
+        #Checking if connected succesfully
+        if response.status_code == 401:
+            self.isAuth = False
+
         # Print response
         print(response.status_code)
         print(response.text)
+
+
+    def updateNode(self, page, payload):
+        if not self.isAuth:
+            return False
+
+        #Sending HTTP post
+        response = requests.post(self.server + page, json=payload, headers=self.headers)
+
+        #Checking if connected succesfully
+        if response.status_code == 401:
+            self.isAuth = False
+            return False
+
+        # Print response
+        print(response.status_code)
+        print(response.text)
+
+        return response.json()['control']
 
     
 
