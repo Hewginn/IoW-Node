@@ -8,6 +8,7 @@ class NodeSessionControl():
         self.serverResponding = True
         self.headers = {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
         }
 
     #Adding new token to the session
@@ -15,12 +16,14 @@ class NodeSessionControl():
         self.headers = {
             'Authorization': 'Bearer ' + token,
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
         }
 
     #Delete Token
     def deleteToken(self):
         self.headers = {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
         }
 
     #Sending credentials and saving the token
