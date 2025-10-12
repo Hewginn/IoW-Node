@@ -6,14 +6,14 @@ class NodeState(Enum):
     Development = 2
     Faulty = 3
 
-    String = [
+class Node():
+
+    NodeStateString = [
         'Offline',
         'Online',
         'In Development',
         'Faulty',
     ]
-
-class Node():
 
     def __init__(self, name: str, password: str, status: NodeState, location: str, main_unit: str):
         self.name = name
@@ -40,7 +40,7 @@ class Node():
         
         details = {
             'location': self.location,
-            'status': NodeState.String[self.status.value],
+            'status': self.NodeStateString[self.status.value],
             'main_unit': self.main_unit,
         }
 
