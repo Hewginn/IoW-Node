@@ -70,10 +70,10 @@ class GUVAS12SD(Sensor):
         # Create single-ended input on channel 0
         chan = AnalogIn(ads, ads1x15.Pin.A0)
 
-        self.uv_index = chan.voltage * 1000 / 200
+        self.uv_index = chan.voltage * 1000 / 1222
 
     def getData(self):
-        self.uv_index = self.readData()    
+        self.readData()    
 
         uv_message = {
             "sensor_name": self.name,
