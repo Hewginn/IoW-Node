@@ -1,26 +1,12 @@
 import adafruit_dht
-from board import D17
+import board
+from adafruit_ads1x15 import ADS1115, AnalogIn, ads1x15
 
 class Sensor():
     def __init__(self, sensor):
         self.is_online = sensor["is_online"]
         self.values = sensor["value_type"]
         self.name = 'DUMMY'
-
-    def createOfflineMessage(self):
-        #Setting sensor status on server side in post
-        pass
-        
-    def turnOffline(self):
-        #In case of error use this
-        self.is_online = False
-
-    def turnOnline(self):
-        #Turn on sensor
-        self.is_online = True
-
-    def getData(self):
-        pass
         
     def details(self):
 
@@ -36,7 +22,7 @@ class DHT11(Sensor):
 
     def __init__(self, sensor):
         super().__init__(sensor)
-        self.device = adafruit_dht.DHT11(D17)
+        self.device = adafruit_dht.DHT11(board.D17)
         self.name = "DHT11"
 
     def readData(self):
@@ -75,7 +61,16 @@ class GUVAS12SD(Sensor):
         self.name = "GUVAS12SD"
 
     def readData(self):
-        self.uv = 30
+        # Create the I2C bus
+        i2c = board.I2C()
+
+        # Create the ADC object using the I2C bus
+        ads = ADS1115(i2c)
+
+        # Create single-ended input on channel 0
+        chan = AnalogIn(ads, ads1x15.Pin.A0)
+
+        self.voltage = chan.voltage
 
     def getData(self):
         self.readData()    
@@ -83,7 +78,7 @@ class GUVAS12SD(Sensor):
         uv_message = {
             "sensor_name": self.name,
             "value_type": "UV",
-            "value":  self.uv,
+            "value":  self.voltage,
             "unit": "UV",
             "error_message": None,
         }
