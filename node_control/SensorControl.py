@@ -70,32 +70,7 @@ class GUVAS12SD(Sensor):
         # Create single-ended input on channel 0
         chan = AnalogIn(ads, ads1x15.Pin.A0)
 
-        mVoltage = ((chan.voltage / 65536) * 3.3) * 1000
-
-        if mVoltage < 50:
-            return 0
-        elif mVoltage >= 227 and mVoltage < 318:
-            return 1
-        elif mVoltage >= 318 and mVoltage < 408:
-            return 2
-        elif mVoltage >= 408 and mVoltage < 503:
-            return 3
-        elif mVoltage >= 503 and mVoltage < 606:
-            return 4
-        elif mVoltage >= 606 and mVoltage < 696:
-            return 5
-        elif mVoltage >= 696 and mVoltage < 795:
-            return 6
-        elif mVoltage >= 795 and mVoltage < 881:
-            return 7
-        elif mVoltage >= 881 and mVoltage < 976:
-            return 8
-        elif mVoltage >= 976 and mVoltage < 1079:
-            return 9
-        elif mVoltage >= 1079 and mVoltage < 1170:
-            return 10
-        else: # anything greater than 1170
-            return 11
+        self.uv_index = chan.voltage * 1000 / 200
 
     def getData(self):
         self.uv_index = self.readData()    
