@@ -103,7 +103,7 @@ class GUVAS12SD(Sensor):
         uv_message = {
             "sensor_name": self.name,
             "value_type": "UV",
-            "value":  self.index,
+            "value":  self.uv_index,
             "unit": "UV inedx",
             "error_message": None,
         }
