@@ -80,6 +80,15 @@ class NodeSessionControl():
 
         if 'control' in response.json():
             return response.json()['control']
+        
+    def sendImage(self, page, jpg_file: str):
+
+        with open(jpg_file, "rb") as img:
+            files = {"image": ("photo.png", img, "image/png")}
+            response = requests.post(self.server + page, files=files)
+
+        print(response.json())
+
 
     
 

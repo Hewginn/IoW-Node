@@ -9,6 +9,7 @@ PAGE_CONNECT = '/api/nodeLogin'
 PAGE_NODE = '/api/updateNode'
 PAGE_SENSOR = '/api/updateSensors'
 PAGE_DATA = '/api/sendData'
+PAGE_IMAGE = '/api/sendImage'
 
 #ID of the node
 NODE_NAME = 'NODE_1'
@@ -17,6 +18,9 @@ NODE_STATUS = NodeControl.NodeState.Online
 NODE_NAME = "Main Unit"
 NODE_LOCATION = "Felsoors Szegedi Roza utca 9."
 NODE_MAIN_UNIT = "Raspberry Pi 4 Model B"
+
+#JPG file location
+JPG_FILE = "/home/jurinov/IoW-Client/camera_control/images/image.jpg"
 
 
 #The implemented sensors
@@ -31,12 +35,15 @@ SENSORS = {
         ]
     },
     "GUVAS12SD":{
-        "is_online": False,
+        "is_online": True,
         "value_type": [
             "UV",
         ],
     },
 }
 
-#The frequency of sending HTTP posts
-DATA_SEND_FRQ = 60 
+#The frequency of sending HTTP posts (sec)
+DATA_SEND_FRQ = 60
+
+#The number of cycels after sending an image
+IMG_SEND_COUNTER = 2
