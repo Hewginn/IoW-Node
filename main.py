@@ -66,7 +66,7 @@ while(True):
         camera.takePicture(JPG_FILE)
 
         # Sending image
-        session.sendImage(PAGE_IMAGE, JPG_FILE)
+        # session.sendImage(PAGE_IMAGE, JPG_FILE)
     
     # Incrementing number of cycles
     number_of_cycles += 1
