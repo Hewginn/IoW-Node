@@ -26,7 +26,7 @@ class Camera:
 class RaspberryPiCameraModuleV2(Camera):
     # Initiate camera using PICAMERA libary
     def __init__(self, camera):
-        super.__init__(camera)
+        super().__init__(camera)
         self.name = "RaspberryPi Camera Module V2"
         self.camera = Picamera2()
         self.camera.configure(self.camera.create_still_configuration(
