@@ -13,7 +13,7 @@ class Camera:
     def details(self):
         details = {
             'name': self.name,
-            'resolution': self.resolution[0] + "x" + self.resolution[1],
+            'resolution': str(self.resolution[0]) + "x" + str(self.resolution[1]),
             'status': 'Online' if self.is_online else 'Offline',
         }
 
