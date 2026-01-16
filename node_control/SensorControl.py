@@ -32,11 +32,11 @@ class DHT11(Sensor):
         try:
             self.humidity = self.device.humidity
             self.temperature = self.device.temperature
-        except RuntimeError:
+        except RuntimeError as e:
             self.is_online = False
-            self.humidity = 0
-            self.temperature = 0
-            return "ERROR: Couldn't make measurement!"
+            # self.humidity = 0
+            # self.temperature = 0
+            return e
 
         return None
 
@@ -96,7 +96,7 @@ class GUVAS12SD(Sensor):
             "sensor_name": self.name,
             "value_type": "UV",
             "value":  self.uv_index,
-            "unit": "UV inedx",
+            "unit": "UV index",
             "error_message": error_message,
         }
 
