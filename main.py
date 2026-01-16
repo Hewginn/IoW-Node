@@ -69,7 +69,7 @@ while(True):
 
             for camera in cameras:
                 if camera.is_online:
-                    session.sendImage(camera.path, camera.getImageMessage())
+                    session.sendImage(PAGE_IMAGE, camera.path, camera.getImageMessage())
     
     # Incrementing number of cycles
     number_of_cycles += 1
