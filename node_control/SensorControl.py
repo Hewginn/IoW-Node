@@ -33,10 +33,11 @@ class DHT11(Sensor):
             self.humidity = self.device.humidity
             self.temperature = self.device.temperature
         except RuntimeError as e:
+            print(str(e))
             self.is_online = False
-            # self.humidity = 0
-            # self.temperature = 0
-            return e
+            self.humidity = 0
+            self.temperature = 0
+            return "ERROR: Couldn't make measurement!"
 
         return None
 
@@ -84,6 +85,8 @@ class GUVAS12SD(Sensor):
             self.uv_index = chan.voltage * 1000 / 1222
 
         except Exception as e:
+            print(str(e))
+            self.uv_index = 0
             return "ERROR: Couldn't make measurement!"
         
         return None
