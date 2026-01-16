@@ -85,11 +85,13 @@ class NodeSessionControl():
 
         with open(jpg_file, "rb") as img:
             files = {
-                "image": ("photo.jpg", img, "image/png")
+                "image": ("photo.jpg", img, "image/jpeg")
             }
             response = requests.post(self.server + page,  files=files, data=payload, headers=self.headers)
 
-        print(response.json())
+        # Print response
+        print(response.status_code)
+        print(response.text)
 
 
     
