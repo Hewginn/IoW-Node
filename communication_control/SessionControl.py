@@ -81,11 +81,13 @@ class NodeSessionControl():
         if 'control' in response.json():
             return response.json()['control']
         
-    def sendImage(self, page, jpg_file: str):
+    def sendImage(self, page, jpg_file: str, payload):
 
         with open(jpg_file, "rb") as img:
-            files = {"image": ("photo.png", img, "image/png")}
-            response = requests.post(self.server + page, files=files)
+            files = {
+                "image": ("photo.jpg", img, "image/png")
+            }
+            response = requests.post(self.server + page,  files=files, data=payload, headers=self.headers)
 
         print(response.json())
 

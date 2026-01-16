@@ -14,7 +14,7 @@ node = NodeControl.Node(
 )
 
 # Initiating Sensors
-sensors = [
+sensors: list[SensorControl.Sensor] = [
     SensorControl.DHT11(SENSORS["DHT11"]),
     SensorControl.GUVAS12SD(SENSORS["GUVAS12SD"])
 ]
@@ -23,7 +23,9 @@ sensors = [
 session = SessionControl.NodeSessionControl(SERVER_URL)
 
 # Initiating camera
-camera = CameraControl.Camera()
+cameras: list[CameraControl.Camera] = [
+    CameraControl.RaspberryPiCameraModuleV2(CAMERAS["RaspberryPi Camera Module V2"])
+]
 
 # Cycle counter
 number_of_cycles = 0
@@ -40,6 +42,8 @@ while(True):
             node.server_control = session.updateNode(PAGE_NODE, node.details())
             for sensor in sensors:
                 session.send(PAGE_SENSOR, sensor.details())
+            for camera in cameras:
+                session.send(PAGE_CAMERA, camera.details())
         else:
             node.setState(NodeControl.NodeState.Offline)
         
@@ -51,7 +55,8 @@ while(True):
         # Gathering sensor data
         datas = []
         for sensor in sensors:
-            datas += sensor.getData()
+            if sensor.is_online:
+                datas += sensor.getData()
 
         print(datas)
 
@@ -59,14 +64,12 @@ while(True):
         for data in datas:
             session.send(PAGE_DATA, data)
 
-    # Sending image to server
-    if number_of_cycles % 5 == 0:
+        # Sending image to server
+        if number_of_cycles % 5 == 0:
 
-        # Taking picture
-        camera.takePicture(JPG_FILE)
-
-        # Sending image
-        # session.sendImage(PAGE_IMAGE, JPG_FILE)
+            for camera in cameras:
+                if camera.is_online:
+                    session.sendImage(camera.path, camera.getImageMessage())
     
     # Incrementing number of cycles
     number_of_cycles += 1

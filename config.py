@@ -10,6 +10,7 @@ PAGE_NODE = '/api/updateNode'
 PAGE_SENSOR = '/api/updateSensors'
 PAGE_DATA = '/api/sendData'
 PAGE_IMAGE = '/api/sendImage'
+PAGE_CAMERA = '/api/updateCameras'
 
 #ID of the node
 NODE_NAME = 'NODE_1'
@@ -19,13 +20,11 @@ NODE_NAME = "Main Unit"
 NODE_LOCATION = "Felsoors Szegedi Roza utca 9."
 NODE_MAIN_UNIT = "Raspberry Pi 4 Model B"
 
-#JPG file location
-JPG_FILE = "/home/jurinov/IoW-Client/camera_control/images/image.jpg"
-
 
 #The implemented sensors
 #In case of implementing a new sensors the following files should be updated:
-#   sensor_data_control.py
+#   SensorControl.py
+#   CameraControl.py
 SENSORS = {
     "DHT11":{
         "is_online": True,
@@ -40,6 +39,14 @@ SENSORS = {
             "UV",
         ],
     },
+}
+
+CAMERAS = {
+    "RaspberryPi Camera Module V2":{
+        "is_online": True,
+        "resolution": (1000, 1000),
+        "used_jpg_file": "/home/jurinov/IoW-Client/camera_control/images/image.jpg"
+    }
 }
 
 #The frequency of sending HTTP posts (sec)
