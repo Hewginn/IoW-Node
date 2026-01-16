@@ -83,11 +83,19 @@ class NodeSessionControl():
         
     def sendImage(self, page, jpg_file: str, payload):
 
+        if not self.isAuth:
+            return
+
+        unique_headers = {
+            'Authorization': self.headers['Authorization'],
+            'Accept': 'application/json',
+        }
+
         files = {
             "image": ("photo.jpg", open(jpg_file, "rb"), "image/jpeg")
         }
 
-        response = requests.post(self.server + page,  files=files, data=payload, headers=self.headers)
+        response = requests.post(self.server + page,  files=files, data=payload, headers=unique_headers)
 
         # Print response
         print(response.status_code)
