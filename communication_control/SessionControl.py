@@ -83,11 +83,11 @@ class NodeSessionControl():
         
     def sendImage(self, page, jpg_file: str, payload):
 
-        with open(jpg_file, "rb") as img:
-            files = {
-                "image": ("photo.jpg", img, "image/jpeg")
-            }
-            response = requests.post(self.server + page,  files=files, data=payload, headers=self.headers)
+        files = {
+            "image": ("photo.jpg", open(jpg_file, "rb"), "image/jpeg")
+        }
+
+        response = requests.post(self.server + page,  files=files, data=payload, headers=self.headers)
 
         # Print response
         print(response.status_code)
