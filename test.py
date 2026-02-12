@@ -1,14 +1,7 @@
-from node_control import SensorControl
-import config
-import time
 
-guva = SensorControl.GUVAS12SD(config.SENSORS["GUVAS12SD"])
-dht = SensorControl.DHT11(config.SENSORS["DHT11"])
+dict_list = []
 
-while(True):
-
-    print(f"Temperature and humidity:\n{dht.getData()}")
-
-    print(f"UV voltage:\n{guva.getData()}")
-
-    time.sleep(10)
+while nev := input("Adja meg a nevet (0 a befejezeshez):") == "0":
+    dict_tel = {"Nev":nev}
+    dict_tel["Telefonszam"] = input("Adja meg a telefonszamot: ")
+    dict_list.append(dict_tel)
