@@ -93,7 +93,7 @@ class GUVAS12SD(Sensor):
         
         return None
 
-    #Creating payload messsega for server
+    #Creating payload messsage for server
     def getData(self):
         error_message = self.readData()    
 
