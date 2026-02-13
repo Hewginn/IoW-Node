@@ -67,26 +67,28 @@ class GUVAS12SD(Sensor):
 
     def __init__(self, sensor):
         super().__init__(sensor)
+
         self.name = "GUVAS12SD"
+
+        # Create the I2C bus
+        self.i2c = board.I2C()
+
+        # Create the ADC object using the I2C bus
+        self.ads = ADS1115(self.i2c)
+
+        # Create single-ended input on channel 0
+        self.chan = AnalogIn(self.ads, ads1x15.Pin.A0)
+
 
     # Read UV values
     def readData(self):
         try:
-            # Create the I2C bus
-            i2c = board.I2C()
-
-            # Create the ADC object using the I2C bus
-            ads = ADS1115(i2c)
-
-            # Create single-ended input on channel 0
-            chan = AnalogIn(ads, ads1x15.Pin.A0)
-
             # Calibration of measured voltage
-            self.uv_index = chan.voltage * 1000 / 1222
+            self.uv_intensity = self.chan.voltage * 2.09 # mW/cm2
 
         except Exception as e:
             print(str(e))
-            self.uv_index = 0
+            self.uv_intensity = 0
             return "ERROR: Couldn't make measurement!"
         
         return None
@@ -98,8 +100,8 @@ class GUVAS12SD(Sensor):
         uv_message = {
             "sensor_name": self.name,
             "value_type": "UV",
-            "value":  self.uv_index,
-            "unit": "UV index",
+            "value":  self.uv_intensity,
+            "unit": "mW/cm2",
             "error_message": error_message,
         }
 
