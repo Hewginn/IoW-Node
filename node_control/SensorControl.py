@@ -47,17 +47,19 @@ class DHT11(Sensor):
 
         temperature_message = {
             "sensor_name": self.name,
-            "value_type": "temperature",
+            "value_type": "Temperature",
             "value":  self.temperature,
             "unit": "C",
+            "max": 50,
             "error_message": error_message,
         }
 
         humidity_message = {
             "sensor_name": self.name,
-            "value_type": "humidity",
+            "value_type": "Humidity",
             "value":  self.humidity,
             "unit": "%",
+            "max": 100,
             "error_message": error_message,
         }
 
@@ -102,6 +104,7 @@ class GUVAS12SD(Sensor):
             "value_type": "UV",
             "value":  self.uv_intensity,
             "unit": "mW/cm2",
+            "max": 2,
             "error_message": error_message,
         }
 
