@@ -1,4 +1,4 @@
-
+import time
 import board
 from adafruit_ads1x15 import ADS1115, AnalogIn, ads1x15
 
@@ -8,4 +8,6 @@ ads = ADS1115(i2c)
 
 chan = AnalogIn(ads, ads1x15.Pin.A0)
 
-print(chan.voltage)
+while(True):
+    print(chan.voltage)
+    time.sleep(1)
