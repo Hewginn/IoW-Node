@@ -1,7 +1,11 @@
 
-dict_list = []
+import board
+from adafruit_ads1x15 import ADS1115, AnalogIn, ads1x15
 
-while nev := input("Adja meg a nevet (0 a befejezeshez):") == "0":
-    dict_tel = {"Nev":nev}
-    dict_tel["Telefonszam"] = input("Adja meg a telefonszamot: ")
-    dict_list.append(dict_tel)
+i2c = board.I2C()
+
+ads = ADS1115(i2c)
+
+chan = AnalogIn(ads, ads1x15.Pin.A0)
+
+print(chan.voltage)
