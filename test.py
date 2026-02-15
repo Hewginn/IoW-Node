@@ -9,5 +9,5 @@ ads = ADS1115(i2c)
 chan = AnalogIn(ads, ads1x15.Pin.A0)
 
 while(True):
-    print(chan.voltage)
+    print(chan.voltage + 0.00025)
     time.sleep(1)

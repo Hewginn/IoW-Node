@@ -86,7 +86,7 @@ class GUVAS12SD(Sensor):
     def readData(self):
         try:
             # Calibration of measured voltage
-            self.uv_intensity = self.chan.voltage * 2.09 # mW/cm2
+            self.uv_intensity = (self.chan.voltage + 0.00025) * 2.09 # mW/cm2
 
         except Exception as e:
             print(str(e))
