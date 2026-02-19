@@ -33,8 +33,6 @@ class RaspberryPiCameraModuleV2(Camera):
             main={
                 "size": self.resolution,
                 "format": "RGB888",
-                "FrameDurationLimits": (33333, 33333),  # ~30 FPS
-                "NoiseReductionMode": 0
             }
         ))
 
