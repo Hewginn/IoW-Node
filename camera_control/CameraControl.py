@@ -42,12 +42,6 @@ class RaspberryPiCameraModuleV2(Camera):
             self.camera.start()
             time.sleep(1)
             self.camera.capture_file(self.path)
-
-            # Check metadata
-            meta = self.camera.capture_metadata()
-            if meta["ExposureTime"] > 20000 or meta["AnalogueGain"] > 4.0:
-                return "Low light (camera boosting exposure/gain)"
-            
             self.camera.stop()
         except Exception as e:
             return "ERROR: Couldn't take picture!"
