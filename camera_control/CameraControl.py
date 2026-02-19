@@ -1,7 +1,5 @@
 from picamera2 import Picamera2
 import time
-import cv2
-import numpy as np
 
 class Camera:
 
