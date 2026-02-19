@@ -35,9 +35,6 @@ class RaspberryPiCameraModuleV2(Camera):
                 "format": "RGB888",
             }
         ))
-
-        # Preventing brightness shifts between frames 
-        self.camera.set_controls({"AeEnable": False, "AwbEnable": False})
     
     # Capture one image
     def takePicture(self):
