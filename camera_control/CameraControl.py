@@ -1,5 +1,7 @@
 from picamera2 import Picamera2
 import time
+import cv2
+import numpy as np
 
 class Camera:
 
@@ -30,8 +32,16 @@ class RaspberryPiCameraModuleV2(Camera):
         self.name = "RaspberryPi Camera Module V2"
         self.camera = Picamera2()
         self.camera.configure(self.camera.create_still_configuration(
-            main={"size": self.resolution}
+            main={
+                "size": self.resolution,
+                "format": "RGB888",
+                "FrameDurationLimits": (33333, 33333),  # ~30 FPS
+                "NoiseReductionMode": 0
+            }
         ))
+
+        # Preventing brightness shifts between frames 
+        self.camera.set_controls({"AeEnable": False, "AwbEnable": False})
     
     # Capture one image
     def takePicture(self):
@@ -39,6 +49,12 @@ class RaspberryPiCameraModuleV2(Camera):
             self.camera.start()
             time.sleep(1)
             self.camera.capture_file(self.path)
+
+            # Check metadata
+            meta = self.camera.capture_metadata()
+            if meta["ExposureTime"] > 20000 or meta["AnalogueGain"] > 4.0:
+                return "Low light (camera boosting exposure/gain)"
+            
             self.camera.stop()
         except Exception as e:
             return "ERROR: Couldn't take picture!"
