@@ -3,7 +3,7 @@ from node_control import NodeControl
 #This file contains the device specific configurations. Should be modified when adding a new device.
 
 #Addresses for the server
-SERVER_URL = 'http://192.168.0.157:29083'
+SERVER_URL = 'http://000.000.0.000:29083'
 
 PAGE_CONNECT = '/api/nodeLogin'
 PAGE_NODE = '/api/updateNode'
