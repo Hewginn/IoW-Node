@@ -44,7 +44,7 @@ SENSORS = {
 CAMERAS = {
     "RaspberryPi Camera Module V2":{
         "is_online": True,
-        "resolution": (1280, 720),
+        "resolution": (600, 400),
         "used_jpg_file": "/home/jurinov/IoW-Client/camera_control/images/image.jpg"
     }
 }
