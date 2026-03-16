@@ -8,6 +8,7 @@ class Camera:
         self.name = "DUMMY"
         self.resolution = camera["resolution"]
         self.is_online = camera["is_online"]
+        self.changed_state = False
         self.path = camera["used_jpg_file"]
 
     def details(self):
@@ -43,7 +44,13 @@ class RaspberryPiCameraModuleV2(Camera):
             time.sleep(1)
             self.camera.capture_file(self.path)
             self.camera.stop()
+            if self.is_online == False:
+                self.is_online = True
+                self.changed_state = True
         except Exception as e:
+            if self.is_online == True:
+                self.is_online = False
+                self.changed_state = True
             return "ERROR: Couldn't take picture!"
         
         return None

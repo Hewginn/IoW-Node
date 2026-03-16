@@ -8,6 +8,7 @@ class Sensor():
         self.is_online = sensor["is_online"]
         self.values = sensor["value_type"]
         self.name = 'DUMMY'
+        self.changed_state = False
         
     def details(self):
 
@@ -32,9 +33,14 @@ class DHT11(Sensor):
         try:
             self.humidity = self.device.humidity
             self.temperature = self.device.temperature
+            if self.is_online == False:
+                self.is_online = True
+                self.changed_state = True
         except RuntimeError as e:
             print(str(e))
-            self.is_online = False
+            if self.is_online == True:
+                self.is_online = False
+                self.changed_state = True
             self.humidity = 0
             self.temperature = 0
             return "ERROR: Couldn't make measurement!"
@@ -81,16 +87,21 @@ class GUVAS12SD(Sensor):
         # Create single-ended input on channel 0
         self.chan = AnalogIn(self.ads, ads1x15.Pin.A0)
 
-
     # Read UV values
     def readData(self):
         try:
             # Calibration of measured voltage
             self.uv_intensity = (self.chan.voltage + 0.00025) * 2.09 # mW/cm2
+            if self.is_online == False:
+                self.is_online = True
+                self.changed_state = True
 
         except Exception as e:
             print(str(e))
             self.uv_intensity = 0
+            if self.is_online == True:
+                self.is_online = False
+                self.changed_state = True
             return "ERROR: Couldn't make measurement!"
         
         return None
