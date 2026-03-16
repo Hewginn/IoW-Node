@@ -96,6 +96,8 @@ while(True):
         # Setting faulty state if one sensor or camera is offline
         if is_node_faulty:
             node.setState(NodeControl.NodeState.Faulty)
+        else:
+            node.setState(NODE_STATUS)
     
     # Incrementing number of cycles
     number_of_cycles += 1
