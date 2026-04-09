@@ -48,7 +48,7 @@ class TestCamera:
     def test_camera(self):
         camera: RaspberryPiCameraModuleV2 = RaspberryPiCameraModuleV2(config.CAMERAS["RaspberryPi Camera Module V2"])
 
-        shutil.copy("/camera_control/images/test.jpg", camera.path)
+        shutil.copy("/home/jurinov/IoW-Client/camera_control/images/test.jpg", camera.path)
 
         time.sleep(1)
 
