@@ -54,6 +54,8 @@ class TestCamera:
 
         before_image = np.array(Image.open(camera.path))
 
+        camera.takePicture()
+
         time.sleep(1)
 
         after_image = np.array(Image.open(camera.path))
