@@ -51,6 +51,8 @@ class TestCamera:
 
         camera.takePicture()
 
+        time.sleep(1)
+
         after_image = np.array(Image.open(camera.path))
 
         assert not np.array_equal(before_image, after_image)
