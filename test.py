@@ -22,7 +22,7 @@ class TestSensors:
             sensor.readData()
             if sensor.temperature != 0:
                 measured_temperatures.append(sensor.temperature)
-            if measured_humidities != 0:
+            if sensor.humidity != 0:
                 measured_humidities.append(sensor.humidity)
             time.sleep(1)
 
