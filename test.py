@@ -24,6 +24,9 @@ class TestSensors:
             measured_humidities.append(sensor.humidity)
             time.sleep(1)
 
+        print(measured_humidities)
+        print(measured_temperatures)
+
         assert all(15 <= x <= 30 for x in measured_temperatures)
         assert all(30 <= x <= 70 for x in measured_humidities)
 
