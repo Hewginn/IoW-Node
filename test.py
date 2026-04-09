@@ -1,7 +1,10 @@
 import time
 import pytest
 from node_control.SensorControl import DHT11, GUVAS12SD
+from camera_control.CameraControl import RaspberryPiCameraModuleV2
 import config
+import numpy as np
+from PIL import Image
 
 
 class TestSensors:
@@ -40,3 +43,14 @@ class TestSensors:
         assert all(0 <= x <= 10 for x in measured_UVs)
         assert len(set(measured_UVs)) > 1
 
+class TestCamera:
+    def test_camera(self):
+        camera: RaspberryPiCameraModuleV2 = RaspberryPiCameraModuleV2(config.CAMERAS["RaspberryPi Camera Module V2"])
+
+        before_image = np.array(Image.open(camera.path))
+
+        camera.takePicture()
+
+        after_image = np.array(Image.open(camera.path))
+
+        assert not np.array_equal(before_image, after_image)
