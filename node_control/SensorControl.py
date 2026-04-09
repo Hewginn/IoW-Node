@@ -99,7 +99,7 @@ class GUVAS12SD(Sensor):
             # Calibration of measured voltage
             self.uv_intensity = (self.chan.voltage + 0.00025) * 2.09 # mW/cm2
             if self.uv_intensity < 0:
-                self.uv_intensity = self.uv_intensity * -1
+                self.uv_intensity = 0
             if self.is_online == False:
                 self.is_online = True
                 self.changed_state = True
