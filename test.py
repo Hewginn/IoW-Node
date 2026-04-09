@@ -5,6 +5,7 @@ from camera_control.CameraControl import RaspberryPiCameraModuleV2
 import config
 import numpy as np
 from PIL import Image
+import shutil
 
 
 class TestSensors:
@@ -47,7 +48,7 @@ class TestCamera:
     def test_camera(self):
         camera: RaspberryPiCameraModuleV2 = RaspberryPiCameraModuleV2(config.CAMERAS["RaspberryPi Camera Module V2"])
 
-        camera.takePicture()
+        shutil.copy("/camera_control/images/test.jpg", camera.path)
 
         time.sleep(1)
 
