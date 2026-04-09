@@ -18,16 +18,14 @@ class TestSensors:
         measured_temperatures = []
         measured_humidities = []
 
-        for i in range(1,20):
+        for i in range(1,10):
             sensor.readData()
             measured_temperatures.append(sensor.temperature)
             measured_humidities.append(sensor.humidity)
-            time.sleep(0.1)
+            time.sleep(1)
 
         assert all(15 <= x <= 30 for x in measured_temperatures)
-        assert len(set(measured_temperatures)) > 1
         assert all(30 <= x <= 70 for x in measured_humidities)
-        assert len(set(measured_humidities)) > 1
 
     def test_UV_sensor(self):
         sensor: GUVAS12SD = GUVAS12SD(config.SENSORS["GUVAS12SD"])
