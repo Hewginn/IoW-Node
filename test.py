@@ -47,9 +47,11 @@ class TestCamera:
     def test_camera(self):
         camera: RaspberryPiCameraModuleV2 = RaspberryPiCameraModuleV2(config.CAMERAS["RaspberryPi Camera Module V2"])
 
-        before_image = np.array(Image.open(camera.path))
-
         camera.takePicture()
+
+        time.sleep(1)
+
+        before_image = np.array(Image.open(camera.path))
 
         time.sleep(1)
 
