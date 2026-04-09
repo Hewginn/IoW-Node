@@ -22,9 +22,6 @@ NODE_MAIN_UNIT = "Raspberry Pi 4 Model B"
 
 
 #The implemented sensors
-#In case of implementing a new sensors the following files should be updated:
-#   SensorControl.py
-#   CameraControl.py
 SENSORS = {
     "DHT11":{
         "is_online": True,

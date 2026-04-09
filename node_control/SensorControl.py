@@ -19,6 +19,12 @@ class Sensor():
         }
 
         return details
+    
+    def readData(self):
+        return None
+    
+    def getData(self):
+        return None
 
 # DHT11 temperature and humidity sensor
 class DHT11(Sensor):

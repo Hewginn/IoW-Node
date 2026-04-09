@@ -5,7 +5,6 @@ class NodeSessionControl():
     def __init__(self, server):
         self.server = server
         self.isAuth = False
-        self.serverResponding = True
         self.headers = {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
@@ -69,7 +68,6 @@ class NodeSessionControl():
         # Print response
         print(response.status_code)
         print(response.text)
-
 
         #Checking if connected succesfully
         if response.status_code == 401:

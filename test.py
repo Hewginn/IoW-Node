@@ -1,13 +1,42 @@
 import time
-import board
-from adafruit_ads1x15 import ADS1115, AnalogIn, ads1x15
+import pytest
+from node_control.SensorControl import DHT11, GUVAS12SD
+import config
 
-i2c = board.I2C()
 
-ads = ADS1115(i2c)
+class TestSensors:
 
-chan = AnalogIn(ads, ads1x15.Pin.A0)
+    def test_DHT11_sensor(self):
+        sensor: DHT11 = DHT11(config.SENSORS["DHT11"])
 
-while(True):
-    print(chan.voltage + 0.00025)
-    time.sleep(1)
+        sensor.readData()
+
+        measured_temperatures = []
+        measured_humidities = []
+
+        for i in range(1,20):
+            sensor.readData()
+            measured_temperatures.append(sensor.temperature)
+            measured_humidities.append(sensor.humidity)
+            time.sleep(0.1)
+
+        assert all(15 <= x <= 30 for x in measured_temperatures)
+        assert len(set(measured_temperatures)) > 1
+        assert all(30 <= x <= 70 for x in measured_humidities)
+        assert len(set(measured_humidities)) > 1
+
+    def test_UV_sensor(self):
+        sensor: GUVAS12SD = GUVAS12SD(config.SENSORS["GUVAS12SD"])
+
+        sensor.readData()
+
+        measured_UVs = []
+
+        for i in range(1,20):
+            sensor.readData()
+            measured_UVs.append(sensor.uv_intensity)
+            time.sleep(0.1)
+
+        assert all(0 <= x <= 10 for x in measured_UVs)
+        assert len(set(measured_UVs)) > 1
+

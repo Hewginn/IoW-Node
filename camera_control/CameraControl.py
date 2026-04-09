@@ -24,6 +24,9 @@ class Camera:
     def takePicture(self):
         return self.path
     
+    def getImageMessage(self):
+        None
+    
 class RaspberryPiCameraModuleV2(Camera):
     # Initiate camera using PICAMERA libary
     def __init__(self, camera):
