@@ -32,7 +32,6 @@ class NodeSessionControl():
 
         # Print response
         print(response.status_code)
-        print(response.text)
 
         if response.status_code == 200:
             self.isAuth = True
@@ -51,11 +50,16 @@ class NodeSessionControl():
 
         # Print response
         print(response.status_code)
-        print(response.text)
 
         #Checking if connected succesfully
         if response.status_code == 401:
             self.isAuth = False
+            self.deleteToken()
+
+        if response.status_code == 200:
+            return True
+        else:
+            return False
 
 
     def updateNode(self, page, payload):
@@ -67,11 +71,11 @@ class NodeSessionControl():
 
         # Print response
         print(response.status_code)
-        print(response.text)
 
         #Checking if connected succesfully
         if response.status_code == 401:
             self.isAuth = False
+            self.deleteToken()
             return False
         elif response.status_code != 200:
             return False
@@ -97,7 +101,11 @@ class NodeSessionControl():
 
         # Print response
         print(response.status_code)
-        print(response.text)
+
+         #Checking if connected succesfully
+        if response.status_code == 401:
+            self.isAuth = False
+            self.deleteToken()
 
 
     

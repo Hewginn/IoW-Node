@@ -20,10 +20,8 @@ class TestSensors:
 
         for i in range(1,10):
             sensor.readData()
-            if sensor.temperature != 0:
-                measured_temperatures.append(sensor.temperature)
-            if sensor.humidity != 0:
-                measured_humidities.append(sensor.humidity)
+            measured_temperatures.append(sensor.temperature)
+            measured_humidities.append(sensor.humidity)
             time.sleep(1)
 
         print(measured_humidities)
