@@ -12,7 +12,7 @@ The repo of the server can be found here: https://github.com/Hewginn/IoW
 
 ## Install
 
-- `git clone https://github.com/username/repository-name.git`
+- `git clone https://github.com/Hewginn/IoW-Node.git`
 - `pip3 install adafruit-circuitpython-dht`
 - `pip3 install adafruit-circuitpython-ads1x15`
 
