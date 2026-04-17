@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Internet of Wine *(IoW)* is an IoT prototype used designed for monitoring of vineyards.
+Internet of Wine *(IoW)* is an IoT prototype designed for monitoring of vineyards.
 This repo contains the implementation of the sensor node.
 The repo of the server can be found here: https://github.com/Hewginn/IoW
 
