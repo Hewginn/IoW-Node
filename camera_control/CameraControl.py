@@ -25,7 +25,7 @@ class Camera:
         return self.path
     
     def getImageMessage(self):
-        None
+        pass
     
 class RaspberryPiCameraModuleV2(Camera):
     # Initiate camera using PICAMERA libary

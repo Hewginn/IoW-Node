@@ -49,5 +49,5 @@ CAMERAS = {
 #The frequency of sending HTTP posts (sec)
 DATA_SEND_FRQ = 60
 
-#The number of cycels after sending an image
+#The number of cycles after sending an image
 IMG_SEND_COUNTER = 2

@@ -43,7 +43,7 @@ class NodeSessionControl():
     #Sending HTTP posts
     def send(self, page, payload):
         if not self.isAuth:
-            return
+            return False
 
         #Sending HTTP post
         response = requests.post(self.server + page, json=payload, headers=self.headers)
@@ -86,7 +86,7 @@ class NodeSessionControl():
     def sendImage(self, page, jpg_file: str, payload):
 
         if not self.isAuth:
-            return
+            return False
 
         unique_headers = {
             'Authorization': self.headers['Authorization'],
