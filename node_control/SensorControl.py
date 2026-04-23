@@ -97,7 +97,7 @@ class GUVAS12SD(Sensor):
     def readData(self):
         try:
             # Calibration of measured voltage
-            self.uv_intensity = (self.chan.voltage + 0.00025) * 2.09 # mW/cm2
+            self.uv_intensity = self.chan.voltage * 0.002685 # mW/cm2
             if self.uv_intensity < 0:
                 self.uv_intensity = 0
             if self.is_online == False:
