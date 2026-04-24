@@ -8,6 +8,8 @@ URL = 'http://localhost:29083'
 
 lock = threading.Lock()
 
+TOTAL_REQUESTS = 1000
+
 # -----------------------------
 # GLOBAL STORAGE FOR CSV
 # -----------------------------
@@ -24,7 +26,7 @@ def record_request(node_id, request_type, success, response_time):
         })
 
 
-def simulate_node(node_id: int):
+def simulate_node(node_id: int, data_loop_count: int):
     session = NodeSessionControl(URL)
 
     connect_message = {
@@ -80,7 +82,7 @@ def simulate_node(node_id: int):
         record_request(node_id, "sensor_update", sensor_ok is not None, (end - start) * 1000)
 
         # 4. DATA LOOP
-        for i in range(10):
+        for i in range(data_loop_count):
             data_message["value"] = 20 + i
 
             start = time.time()
@@ -111,14 +113,39 @@ def save_csv(filename="report.csv"):
 
 
 def run_test(node_count: int):
+    global results
+    results = []
+
     threads = []
 
     print(f"Starting test with {node_count} nodes...")
 
+    # FIX requests
+    fixed_requests_per_node = 3
+
+    # Number of fixed requests
+    total_fixed = node_count * fixed_requests_per_node
+
+    # Remaining requests
+    remaining_requests = TOTAL_REQUESTS - total_fixed
+
+    # Data request/node
+    data_per_node = remaining_requests // node_count
+
+    extra_requests = remaining_requests % node_count
+
+    print(f"Data requests per node: {data_per_node}")
+
     start_test = time.time()
 
     for i in range(1, node_count + 1):
-        t = threading.Thread(target=simulate_node, args=(i,))
+
+        extra = 1 if i <= extra_requests else 0
+
+        t = threading.Thread(
+            target=simulate_node,
+            args=(i, data_per_node + extra)
+        )
         threads.append(t)
         t.start()
 
@@ -153,5 +180,5 @@ def run_test(node_count: int):
 
 
 if __name__ == "__main__":
-    NODE_COUNT = 100  # 10 → 50 → 100
+    NODE_COUNT = 10  # 10 → 50 → 100
     run_test(NODE_COUNT)
